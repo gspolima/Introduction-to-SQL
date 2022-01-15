@@ -28,6 +28,16 @@ VALUES
 
 SELECT 
 	p.person_first_name, 
-	p.person_last_name FROM person as p;
+	p.person_last_name
+FROM person as p;
 
-SELECT DISTINCT p.person_first_name FROM person as p;
+SELECT DISTINCT 
+	p.person_first_name
+FROM person as p;
+
+/* DISTINCT won't work if the 
+combination of columns is not unique */
+SELECT DISTINCT 
+	p.person_first_name,
+    p.person_last_name
+FROM person as p;
