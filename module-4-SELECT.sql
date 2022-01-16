@@ -6,7 +6,7 @@ USE contacts;
 CREATE TABLE IF NOT EXISTS person(
 	person_id INT NOT NULL AUTO_INCREMENT,
 	person_first_name VARCHAR(30) NOT NULL,
-	person_last_name VARCHAR(40) NOT NULL,
+	person_last_name VARCHAR(40) NULL,
     person_contacted_number INTEGER NOT NULL,
     person_date_last_contacted DATETIME NOT NULL,
     person_date_added DATETIME NOT NULL,
