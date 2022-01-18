@@ -43,20 +43,23 @@ SELECT
 FROM
 	person p;
 
-/* 	Will ignore the NULL values 
-	regardless of what the WHERE says */
+/* Will ignore the NULL values 
+regardless of what the WHERE says */
 SELECT COUNT(p.person_last_name)
 FROM person p
 WHERE p.person_last_name IS NULL;
 
 SELECT 
-	p.person_first_name ,COUNT(DISTINCT p.person_first_name) AS 'unique_first_names'
+	p.person_first_name,
+	COUNT(DISTINCT p.person_first_name) AS 'unique_first_names'
 FROM
 	person p
-GROUP BY p.person_first_name;
+GROUP BY 
+	p.person_first_name;
 
 SELECT 
-	p.person_first_name ,COUNT(p.person_first_name) AS 'how_many_of_each_first_name'
+	p.person_first_name,
+	COUNT(p.person_first_name) AS 'how_many_of_each_first_name'
 FROM
 	person p
 GROUP BY 
@@ -66,7 +69,7 @@ ORDER BY
     
 SELECT
 	COUNT(*) AS 'how_many_people_contacted_x_times', 
-    p.person_contacted_number
+    	p.person_contacted_number
 FROM
 	person p
 GROUP BY 
@@ -76,10 +79,10 @@ ORDER BY
     
 SELECT
 	COUNT(p.person_id) AS FirstNameCount, 
-    p.person_first_name AS FirstName
+    	p.person_first_name AS FirstName
 FROM 
 	person p
 GROUP BY
 	p.person_first_name
 HAVING
-	FirstNameCount > 1; 
+	FirstNameCount > 1;
