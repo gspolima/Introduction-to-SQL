@@ -50,6 +50,36 @@ FROM person p
 WHERE p.person_last_name IS NULL;
 
 SELECT 
-	COUNT(DISTINCT p.person_first_name) AS 'unique_first_names'
+	p.person_first_name ,COUNT(DISTINCT p.person_first_name) AS 'unique_first_names'
 FROM
-	person p;
+	person p
+GROUP BY p.person_first_name;
+
+SELECT 
+	p.person_first_name ,COUNT(p.person_first_name) AS 'how_many_of_each_first_name'
+FROM
+	person p
+GROUP BY 
+	p.person_first_name
+ORDER BY 
+	COUNT(p.person_first_name) DESC;
+    
+SELECT
+	COUNT(*) AS 'how_many_people_contacted_x_times', 
+    p.person_contacted_number
+FROM
+	person p
+GROUP BY 
+	p.person_contacted_number
+ORDER BY
+	COUNT(*) DESC;
+    
+SELECT
+	COUNT(p.person_id) AS FirstNameCount, 
+    p.person_first_name AS FirstName
+FROM 
+	person p
+GROUP BY
+	p.person_first_name
+HAVING
+	FirstNameCount > 1; 
