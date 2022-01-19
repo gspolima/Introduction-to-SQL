@@ -1,5 +1,5 @@
-/* Creating the other 
-tables and seeding data for the JOIN module */
+/* 	Creating the other tables and 
+	seeding data for the JOIN module */
 CREATE TABLE address (
 	address_id INTEGER NOT NULL,
     address_building_number VARCHAR(55) NOT NULL,
@@ -133,6 +133,11 @@ INSERT INTO email_address (
     email_address_person_id,
     email_address)
 VALUES (9, 6, 'motagustavo@hotmail.com');
+INSERT INTO email_address (
+	email_address_id,
+    email_address_person_id,
+    email_address)
+VALUES (10, NULL, 'thomas.yorke@umg.com');
 
 CREATE TABLE person_address (
 	person_address_id INTEGER NOT NULL,
@@ -169,7 +174,8 @@ INNER JOIN
 	ON ea.email_address_person_id = p.person_id
 ORDER BY
 	p.person_first_name;
-    
+  
+
 SELECT
 	CONCAT(p.person_first_name, ' ', p.person_last_name) AS FullName,
 	COUNT(ea.email_address) AS EmailCount
@@ -184,3 +190,62 @@ HAVING
 	EmailCount > 1
 ORDER BY
 	FullName;
+
+
+SELECT
+	p.person_id,
+    p.person_first_name,
+    p.person_last_name,
+    ea.email_address
+FROM
+	person p
+LEFT OUTER JOIN
+	email_address ea
+	ON ea.email_address_person_id = p.person_id
+WHERE
+	p.person_contacted_number > 2
+ORDER BY
+	p.person_id;
+  
+  
+SELECT
+	p.person_id,
+    p.person_first_name,
+    p.person_last_name,
+    ea.email_address_id,
+    ea.email_address
+FROM
+	person p
+RIGHT OUTER JOIN
+    email_address ea
+	ON p.person_id = ea.email_address_person_id
+ORDER BY
+	p.person_id;
+    
+
+/* 	A workaround to MySQL's lack of 
+	support for FULL OUTER JOIN's, 
+	using UNION DISTINCT */
+SELECT
+	p.person_id,
+    p.person_first_name,
+    p.person_last_name,
+    ea.email_address_id,
+    ea.email_address
+FROM
+	person p
+LEFT JOIN
+    email_address ea
+	ON p.person_id = ea.email_address_person_id
+UNION DISTINCT
+SELECT
+	p.person_id,
+    p.person_first_name,
+    p.person_last_name,
+    ea.email_address_id,
+    ea.email_address
+FROM
+	person p
+RIGHT JOIN
+	email_address ea
+	ON ea.email_address_person_id = p.person_id
